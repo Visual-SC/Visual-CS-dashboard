@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mr+De+Haviland&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+    /*Tipografía*/
+  --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-haviland: "Mr De Haviland", cursive;
+  --font-antonio: "Antonio", ui-sans-serif, system-ui, sans-serif;
+
+  /*Tamaño de letra*/
+  --text-p-12: 12px;
+  --text-p-14: 14px;
+  --text-p-16: 16px;
+  --text-p-18: 18px;
+  --text-h4-20: 20px;
+  --text-h3-24: 24px;
+  --text-h2-28: 28px;
+  --text-h1-32: 32px;
+
+  /*Paleta de colores*/
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-dark-green: #03575E;
+  --color-peach-cream:#FFEFF0;
+  --color-glacier-blue: #A7E9EE;
+  --color-medium-blue:  #AEDBE0;
+  --color-light-blue: #F1FCFD;
+
+  /*Media Queries*/
+  --breakpoint-xs: 320px;
+  --breakpoint-cellphone: 480px;
+  --breakpoint-cellphone-landscape: 833px;
+  --breakpoint-tablet: 834px;
+  --breakpoint-tablet-large: 1024px;
+  --breakpoint-desktop: 1280px;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-montserrat);
+  }
+
+  body {
+    font-family: inherit;
+  }
+}
+
+.fontA,
+.fontB {
+  inset: 0;
+  will-change: transform, opacity, filter;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.fontA {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  display: block;
+}
+
+.fontB {
+  font-family: "Antonio", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  display: none;
+  font-size: 20px;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.51);
+  color: #a7e9ee;
+}
+
+.order-created {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+@media (min-width: 834px) {
+  .order-created {
+    width: 570px;
+  }
+}
+
+@media (max-width: 833px) {
+  .order-created {
+    width: 90%;
+  }
+
+  .order-created article {
+    width: 100%;
+  }
+
+  .order-created img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+
+@media (min-width: 834px) {
+  .scrollbar-hidden-tablet-up {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hidden-tablet-up::-webkit-scrollbar {
+    display: none;
+  }
+}
+
