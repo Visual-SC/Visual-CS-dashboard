@@ -33,6 +33,6 @@ export default function HeaderDashboard() {
             <p className="text-p-16">Luisa Rodson</p>
             <p className="text-p-16 text-dark-green">{currentDate.toSpanishFormat()}</p>
           </section>
-        </header>
+    </header>
   )
 }

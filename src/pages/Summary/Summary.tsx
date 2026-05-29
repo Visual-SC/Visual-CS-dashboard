@@ -1,8 +1,19 @@
+import DashboardMainCard from "../../components/DashboardMainCard/DashboardMainCard";
+import { DashboardCashData } from "./data";
+
 export default function Summary() {
   return (
-    <section className="flex flex-col gap-6 p-6">
-      <h2 className="font-antonio text-h1-32 text-glacier-blue">Resumen</h2>
-      <p className="text-p-16 font-semibold">Vista general del dashboard.</p>
+    <section className="flex flex-col gap-6 p-2 max-w-230 ">
+      <article className="flex justify-between h-22">
+      {
+        DashboardCashData.map((card)=>(
+          <DashboardMainCard 
+            label={card.label}
+            image={card.image}
+          />
+        ))
+      }
+      </article>  
     </section>
   )
 }
