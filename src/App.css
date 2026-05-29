@@ -26,6 +26,7 @@
   --color-glacier-blue: #A7E9EE;
   --color-medium-blue:  #AEDBE0;
   --color-light-blue: #F1FCFD;
+  --color-light-dash-green: #E7F8FA;
 
   /*Media Queries*/
   --breakpoint-xs: 320px;
@@ -69,8 +70,7 @@
   font-style: normal;
   display: none;
   font-size: 20px;
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.51);
-  color: #a7e9ee;
+  color: #03575E;
 }
 
 .order-created {
