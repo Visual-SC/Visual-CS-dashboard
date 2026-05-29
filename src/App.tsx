@@ -9,12 +9,7 @@ function App() {
       <div className="grid grid-cols-[316px_1fr] h-screen">
         <DashAside />
         <Routes>
-          <Route path="/" element={<MainDashboard />} />
-          <Route path="/resumen" element={<MainDashboard />} />
-          <Route path="/ordenes" element={<MainDashboard />} />
-          <Route path="/productos" element={<MainDashboard />} />
-          <Route path="/eventos" element={<MainDashboard />} />
-          <Route path="/aplicacion" element={<MainDashboard />} />
+          <Route path="/*" element={<MainDashboard />} />
         </Routes>
       </div>
     </BrowserRouter>
