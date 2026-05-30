@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "graph": {
+      "type": "local",
+      "command": ["npx", "-y", "@mcp-graph-workflow/mcp-graph"],
+      "enabled": true
+    }
+  }
+}

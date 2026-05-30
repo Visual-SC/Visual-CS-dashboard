@@ -1,4 +1,8 @@
 import DashboardMainCard from "../../components/DashboardMainCard/DashboardMainCard";
+import TotalIncomesGraph from "../../components/TotalIncomesGraph/TotalIncomesGraph";
+import LastOrders from "../../components/LastOrders/LastOrders";
+import TopProducts from "../../components/TopProducts/TopProducts";
+import LastEvents from "../../components/LastEvents/LastEvents";
 import { DashboardCashData } from "./data";
 
 export default function Summary() {
@@ -13,6 +17,12 @@ export default function Summary() {
           />
         ))
       }
+      </article>
+      <article className="grid grid-cols-2 grid-rows-2 gap-4">
+        <TotalIncomesGraph />
+        <LastOrders />
+        <TopProducts />
+        <LastEvents />
       </article>  
     </section>
   )
