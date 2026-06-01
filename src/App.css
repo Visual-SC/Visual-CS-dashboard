@@ -9,6 +9,7 @@
   --font-antonio: "Antonio", ui-sans-serif, system-ui, sans-serif;
 
   /*Tamaño de letra*/
+  --text-p-10: 10px;
   --text-p-12: 12px;
   --text-p-14: 14px;
   --text-p-16: 16px;
@@ -27,6 +28,7 @@
   --color-medium-blue:  #AEDBE0;
   --color-light-blue: #F1FCFD;
   --color-light-dash-green: #E7F8FA;
+  /*E7F8FA*/
 
   /*Media Queries*/
   --breakpoint-xs: 320px;

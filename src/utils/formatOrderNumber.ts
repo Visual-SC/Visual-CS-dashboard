@@ -1,0 +1,1 @@
+export const formatOrderNumber = (num: string) => num.slice(0, 8);
