@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { formatPrice } from '../../utils/formatPrice';
 import { formatOrderNumber } from '../../utils/formatOrderNumber';
 import type { OrderCardProps } from './types';
+import Tooltip from '../Tooltip/Tooltip';
 
 const OrderCard = ({ id, numero_orden, cliente, total, estado }: OrderCardProps) => {
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
   return (
     <article key={id} className="flex bg-light-dash-green rounded-md mt-2 h-16 px-2">
@@ -24,12 +25,10 @@ const OrderCard = ({ id, numero_orden, cliente, total, estado }: OrderCardProps)
         >
           <img className="w-full h-full" src="./image_edit.svg" />
         </button>
-        <span
-          className={`absolute left-1/2 -translate-x-1/2 -top-7 bg-[#aedbe0]/80 text-xs 
-            px-2 py-1 rounded text-black font-semibold   whitespace-nowrap z-10 transition-opacity duration-200 ${showTooltip ? 'opacity-100' : 'opacity-0'}`}
-        >
-          Editar orden
-        </span>
+        <Tooltip 
+        showTooltip={showTooltip}
+        label="Editar Orden"
+        />
       </div>
     </article>
   );

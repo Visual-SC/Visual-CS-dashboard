@@ -14,8 +14,6 @@ function LastOrders(props: LastOrdersProps) {
         .slice(0, 4)
     : [];
 
-  //const formatOrderNumber = (num: string) => num.slice(0, 8);
-
   return (
     <div className="bg-light-blue rounded-lg p-4">
       <header className="flex justify-between">

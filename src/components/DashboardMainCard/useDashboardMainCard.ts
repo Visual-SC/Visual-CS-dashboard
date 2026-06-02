@@ -7,8 +7,13 @@ export function useDashboardMainCard() {
     ? data.data.chartData.reduce((sum, item) => sum + item.total, 0)
     : 0;
 
+  const totalOrders = data?.data?.chartData
+    ? data.data.chartData.reduce((sum, item) => sum + item.orders, 0)
+    : 0;
+
   return {
     totalIncomes,
+    totalOrders,
     isLoading,
     error,
   };
