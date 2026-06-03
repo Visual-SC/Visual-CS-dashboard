@@ -95,7 +95,7 @@ function TotalIncomesGraph() {
           },
           options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             layout: {
               padding: { top: 10, bottom: 0, left: 0, right: 0 },
             },
@@ -202,7 +202,9 @@ function TotalIncomesGraph() {
       {isLoading && <p className="text-sm text-gray-500">Cargando...</p>}
       {error && <p className="text-sm text-red-500">{error}</p>}
 
-      <canvas ref={canvasRef} className={data === null ? 'hidden' : ''} />
+      <div className="h-[calc(100%-3rem)]">
+        <canvas ref={canvasRef} className={data === null ? 'hidden' : ''} />
+      </div>
     </section>
   );
 }

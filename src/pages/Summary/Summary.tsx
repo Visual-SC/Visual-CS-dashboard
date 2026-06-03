@@ -7,7 +7,7 @@ import { DashboardCashData } from "./data";
 
 export default function Summary() {
   return (
-    <section className="flex flex-col gap-6 p-2">
+    <section className="flex flex-col gap-2 p-2">
       <article className="flex justify-between h-22 max-w-230">
       {
         DashboardCashData.map((card)=>(
@@ -18,7 +18,7 @@ export default function Summary() {
         ))
       }
       </article>
-      <article className="grid grid-cols-2 grid-rows-2 gap-4">
+      <article className="grid grid-cols-2 gap-4" style={{ gridTemplateRows: '304px 273px' }}>
         <TotalIncomesGraph />
         <LastOrders />
         <TopProducts />
