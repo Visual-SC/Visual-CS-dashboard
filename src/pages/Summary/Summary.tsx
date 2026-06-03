@@ -8,7 +8,8 @@ import { DashboardCashData } from "./data";
 export default function Summary() {
   return (
     <section className="flex flex-col gap-2 p-2">
-      <article className="flex justify-between h-22 max-w-230">
+      <article className="flex justify-between h-auto max-w-230 flex-wrap max-tablet-large:h-auto
+      max-tablet-large:w-113 max-tablet-large:mx-auto tablet-large:gap-4">
       {
         DashboardCashData.map((card)=>(
           <DashboardMainCard 

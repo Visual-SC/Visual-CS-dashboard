@@ -8,7 +8,7 @@ export default function DashAside() {
   const { pathname } = useHeaderDashboardSync();
 
   return (
-    <aside className="bg-light-dash-green p-4 h-full">
+    <aside className="bg-light-dash-green p-4 h-full max-tablet-large:hidden">
       <ul className="flex flex-col items-center gap-6 fixed" ref={container}>
         <li>
           <Link to="/">
@@ -25,7 +25,7 @@ export default function DashAside() {
             <li key={item.to}>
               <Link
                 to={item.to}
-                className={`item relative inline-flex items-center gap-2 justify-between w-65 ${isActive ? 'active' : ''}`}
+                className={`item relative inline-flex items-center gap-2 justify-between w-69 ${isActive ? 'active' : ''}`}
                 onClick={() => handleClickGSAP(index)}
               >
                 <div className="relative">
