@@ -39,7 +39,7 @@ function TopProducts() {
                   />
                   <span className="text-dark-green text-p-14 font-semibold self-center truncate h-6 flex items-center">{product.nombre}</span>
                   <span className="text-black font-antonio font-black self-center text-right text-p-18 h-6 flex items-center justify-end">{formatPrice(product.total)}</span>
-                  <img src="./akar-icons_link-out-green.svg" className="w-4 h-6 self-center" alt="Ver producto" />
+                  <img src="./iconamoon_trend-up-fill.svg" className="w-4 h-6 self-center" alt="Ver producto" />
                 </div>
               ))}
             </div>

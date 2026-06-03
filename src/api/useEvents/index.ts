@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { EventsResponse } from "./types";
 
-const BASE_URL = "http://localhost:3001/api/events";
+const BASE_URL = "http://localhost:3001/api/get-events";
 
 export function useEvents() {
   const [data, setData] = useState<EventsResponse | null>(null);
@@ -14,6 +14,7 @@ export function useEvents() {
 
     try {
       const res = await fetch(BASE_URL);
+      
       if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
       const json: EventsResponse = await res.json();
       setData(json);
