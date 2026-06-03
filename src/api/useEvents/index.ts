@@ -1,31 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
+import type { EventsResponse } from "./types";
 
-export interface OrdenCafe {
-  _id: string;
-  numero_orden: string;
-  fecha: string;
-  estado: "pendiente" | "preparando" | "completada" | "cancelada";
-  items: object[];
-  resumen: {
-    subtotal: number;
-    impuestos: number;
-    propinas: number;
-    total: number;
-  };
-  cliente: string;
-  numero_mesa: string;
-}
+const BASE_URL = "http://localhost:3001/api/events";
 
-export interface OrdersResponse {
-  status: string;
-  message: string;
-  data: OrdenCafe[];
-}
-
-const BASE_URL = "http://localhost:3001/api/get-orders";
-
-export function useTotalOrders() {
-  const [data, setData] = useState<OrdersResponse | null>(null);
+export function useEvents() {
+  const [data, setData] = useState<EventsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,7 +15,7 @@ export function useTotalOrders() {
     try {
       const res = await fetch(BASE_URL);
       if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
-      const json: OrdersResponse = await res.json();
+      const json: EventsResponse = await res.json();
       setData(json);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error desconocido");

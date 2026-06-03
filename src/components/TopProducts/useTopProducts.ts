@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { useTotalOrders } from "../../api/getTotalOrders";
-import type { OrdenCafe } from "../../api/getTotalOrders";
+import { useTotalOrders } from "../../api/useTotalOrders";
+import type { OrdenCafe } from "../../api/useTotalOrders/types";
 import type { ProductItem, TopProduct } from "./type";
 
 

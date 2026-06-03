@@ -11,11 +11,13 @@ import { useTopProducts } from "./useTopProducts";
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
 
 const CHART_COLORS = [
-  "rgb(255, 99, 132)",
-  "rgb(255, 159, 64)",
-  "rgb(255, 205, 86)",
-  "rgb(75, 192, 192)",
-  "rgb(54, 162, 235)",
+  { bg: 'rgba(255, 99, 132, 0.5)', border: 'rgb(255, 99, 132)' },
+  { bg: 'rgba(255, 159, 64, 0.5)', border: 'rgb(255, 159, 64)' },
+  { bg: 'rgba(255, 205, 86, 0.5)', border: 'rgb(255, 205, 86)' },
+  { bg: 'rgba(75, 192, 192, 0.5)', border: 'rgb(75, 192, 192)' },
+  { bg: 'rgba(54, 162, 235, 0.5)', border: 'rgb(54, 162, 235)' },
+  { bg: 'rgba(153, 102, 255, 0.5)', border: 'rgb(153, 102, 255)' },
+  { bg: 'rgba(201, 203, 207, 0.5)', border: 'rgb(201, 203, 207)' },
 ];
 
 export function useGraphTopProducts() {
@@ -29,10 +31,10 @@ export function useGraphTopProducts() {
       datasets: [
         {
           data: topProducts.map((p) => p.cantidad),
-          backgroundColor: CHART_COLORS,
-          borderColor: "#ffffff",
-          borderWidth: 3,
-          hoverOffset: 8,
+          backgroundColor: CHART_COLORS.map((c) => c.bg),
+          borderColor: CHART_COLORS.map((c) => c.border),
+          borderWidth: 1,
+          hoverOffset: 4,
         },
       ],
     };

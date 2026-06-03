@@ -9,7 +9,7 @@ export default function DashAside() {
 
   return (
     <aside className="bg-light-dash-green p-4 h-full">
-      <ul className="flex flex-col items-center gap-6" ref={container}>
+      <ul className="flex flex-col items-center gap-6 fixed" ref={container}>
         <li>
           <Link to="/">
             <img

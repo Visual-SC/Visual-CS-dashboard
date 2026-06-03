@@ -1,9 +1,4 @@
-import type { Period } from '../../api/getTotalncomes';
-
-type TotalIncomesProps = {
-    isOpen: boolean;
-    onSelectPeriod: (period: Period) => void;
-}
+import type { TotalIncomesProps } from './type';
 
 const TotalncomesOptions:React.FC<TotalIncomesProps> = ({isOpen, onSelectPeriod}) => {
   if(!isOpen) return null;

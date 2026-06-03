@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { LastOrdersProps } from './type';
-import { useTotalOrders } from '../../api/getTotalOrders';
+import { useTotalOrders } from '../../api/useTotalOrders';
 
 import OrderCard from '../OrderCard/OrderCard';
 

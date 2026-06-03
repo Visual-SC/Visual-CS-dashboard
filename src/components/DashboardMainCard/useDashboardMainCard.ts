@@ -1,4 +1,4 @@
-import { useTotalIncomes } from "../../api/getTotalncomes";
+import { useTotalIncomes } from "../../api/useTotalIncomes";
 
 export function useDashboardMainCard() {
   const { data, isLoading, error } = useTotalIncomes();
