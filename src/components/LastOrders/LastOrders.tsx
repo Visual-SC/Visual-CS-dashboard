@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { LastOrdersProps } from './type';
 import { useTotalOrders } from '../../api/getTotalOrders';
-import { formatPrice } from '../../utils/formatPrice';
-import { formatOrderNumber } from '../../utils/formatOrderNumber';
+
 import OrderCard from '../OrderCard/OrderCard';
 
 function LastOrders(props: LastOrdersProps) {
