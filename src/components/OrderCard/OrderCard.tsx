@@ -8,7 +8,8 @@ const OrderCard = ({ id, numero_orden, cliente, total, estado }: OrderCardProps)
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
   return (
-    <article key={id} className="flex bg-light-dash-green rounded-md mt-2 h-14 px-2">
+    <article key={id} className="flex bg-light-dash-green rounded-md mt-2 h-14 px-2
+    max-cellphone:min-h-18 max-cellphone:h-auto">
       <div className="flex flex-col self-center">
         <p className="text-p-16 font-semibold text-black">No. {formatOrderNumber(numero_orden)}</p>
         <p className="text-p-16 font-semibold text-dark-green">{cliente}</p>

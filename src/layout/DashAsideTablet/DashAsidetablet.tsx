@@ -13,9 +13,10 @@ export default function DashAsideTablet() {
 return (
     <aside
       ref={containerRef}
-      className="bg-light-dash-green p-4 h-full w-93.5 fixed z-20 top-0 -left-76 tablet-large:hidden"
+      className="bg-light-dash-green p-4 h-full w-93.5 fixed z-20 top-0 -left-76 tablet-large:hidden
+      max-cellphone:hidden"
     >
-<button
+    <button
         onClick={toggleAside}
         className="w-11 h-11 mb-4 inline-flex items-center justify-center
         bg-medium-blue rounded-full absolute right-4 top-6"

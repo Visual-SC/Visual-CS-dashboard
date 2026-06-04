@@ -10,7 +10,9 @@ export default function MainDashboard() {
   useHeaderDashboardSync();
 
   return (
-    <main className="p-2 max-tablet-large:col-start-2 max-tablet-large:col-end-3">
+    <main className="p-2 max-tablet-large:col-start-2 max-tablet-large:col-end-3
+    max-cellphone:w-11/12 max-cellphone:col-start-1 max-cellphone:col-end-2 max-cellphone:mx-auto
+    max-cellphone:p-0">
       <HeaderDashboard />
       <Routes>
         <Route path="/" element={<Summary />} />

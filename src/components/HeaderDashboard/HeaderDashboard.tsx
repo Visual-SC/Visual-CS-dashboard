@@ -23,12 +23,15 @@ export default function HeaderDashboard() {
   }, { dependencies: [label, description] });
 
   return (
-    <header className="flex justify-between">
-          <section className="flex flex-col w-104">
-            <h1 ref={titleRef} className="font-antonio text-h1-32 drop-shadow-[0_1px_1px_rgba(0,0,0,0.45)] text-glacier-blue">{label}</h1>
-            <p ref={descRef} className="text-font-16 font-semibold">{description}</p>
+    <header className="flex justify-between ">
+          <section className="flex flex-col w-104 max-cellphone:w-view ">
+            <h1 ref={titleRef} className="font-antonio text-h1-32 drop-shadow-[0_1px_1px_rgba(0,0,0,0.45)] text-glacier-blue
+            max-cellphone-landscape:text-center max-cellphone-landscape:text-h2-28">{label}</h1>
+            <p ref={descRef} className="text-font-16 font-semibold max-cellphone-landscape:text-center
+            ">{description}</p>
           </section>
-          <section className="w-57 mt-1 font-semibold grid grid-cols-[46px_1fr] h-11.5 gap-2 grid-rows-2">
+          <section className="w-57 mt-1 font-semibold grid grid-cols-[46px_1fr] h-11.5 gap-2 grid-rows-2
+          max-cellphone-landscape:hidden">
             <div className="w-11.5 h-11.5 rounded-full bg-gray-300 row-span-2"></div>
             <p className="text-p-16">Luisa Rodson</p>
             <p className="text-p-16 text-dark-green">{currentDate.toSpanishFormat()}</p>

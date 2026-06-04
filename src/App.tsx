@@ -7,7 +7,8 @@ import DashAsideTablet from './layout/DashAsideTablet/DashAsidetablet';
 function App() {
   return (
     <BrowserRouter>
-      <div className="grid grid-cols-[316px_1fr] h-screen max-tablet-large:grid-cols-[88px_1fr]">
+      <div className="grid grid-cols-[316px_1fr] h-screen max-tablet-large:grid-cols-[88px_1fr] max-cellphone:grid-cols-1
+      max-cellphone:w-full">
         <DashAside />
         <DashAsideTablet />
         <Routes>

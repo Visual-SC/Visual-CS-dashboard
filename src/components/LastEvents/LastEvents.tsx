@@ -8,7 +8,8 @@ function LastEvents(props: LastEventsProps) {
   const recentOrders = lastEvents.slice(0, 3);
 
   return (
-    <div className="bg-light-blue rounded-lg p-4">
+    <div className="bg-light-blue rounded-lg p-4 max-tablet-large:w-3/5 max-tablet-large:justify-self-center
+    max-cellphone:w-full max-cellphone:p-0">
       <header className="flex justify-between">
         <section className="inline-flex w-auto">
           <h3 className="text-p-16 text-dark-green font-semibold">Últimos eventos</h3>

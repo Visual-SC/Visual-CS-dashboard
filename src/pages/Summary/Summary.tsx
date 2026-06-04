@@ -7,9 +7,10 @@ import { DashboardCashData } from "./data";
 
 export default function Summary() {
   return (
-    <section className="flex flex-col gap-2 p-2">
-      <article className="flex justify-between h-auto max-w-230 flex-wrap max-tablet-large:h-auto
-      max-tablet-large:w-113 max-tablet-large:mx-auto tablet-large:gap-4">
+    <section className="flex flex-col gap-2 p-2  max-cellphone:w-full  max-cellphone:p-0">
+      <article className="flex justify-between h-auto w-230 flex-wrap max-tablet-large:h-auto
+      max-tablet-large:w-113 max-tablet-large:mx-auto tablet-large:gap-4 max-cellphone:flex-col
+      max-cellphone:w-full max-cellphone:items-center max-cellphone:m-0">
       {
         DashboardCashData.map((card)=>(
           <DashboardMainCard 
@@ -19,7 +20,9 @@ export default function Summary() {
         ))
       }
       </article>
-      <article className="grid grid-cols-2 gap-4" style={{ gridTemplateRows: '304px 273px' }}>
+      <article className="grid grid-cols-2 gap-4 grid-rows-[304px_273px] max-tablet-large:grid-cols-1
+      max-tablet-large:grid-rows-[350px_307px_273px_auto] max-cellphone:grid-rows-[307px_auto_273px_auto]
+      max-cellphone:min-h-80">
         <TotalIncomesGraph />
         <LastOrders />
         <TopProducts />
