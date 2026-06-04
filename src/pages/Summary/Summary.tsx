@@ -21,7 +21,7 @@ export default function Summary() {
       }
       </article>
       <article className="grid grid-cols-2 gap-4 grid-rows-[304px_273px] max-tablet-large:grid-cols-1
-      max-tablet-large:grid-rows-[350px_307px_273px_auto] max-cellphone:grid-rows-[307px_auto_273px_auto]
+      max-tablet-large:grid-rows-[350px_307px_273px_auto] max-cellphone:grid-rows-[307px_auto_468px_auto]
       max-cellphone:min-h-80">
         <TotalIncomesGraph />
         <LastOrders />

@@ -7,19 +7,19 @@ function TopProducts() {
 
   return (
     <div className="bg-light-blue rounded-lg p-4 max-tablet-large:w-3/5 max-tablet-large:justify-self-center
-    max-cellphone:w-full max-cellphone:p-0">
-      <header className="flex justify-between">
+    max-cellphone:w-full max-cellphone:p-2">
+      <header className="flex justify-between max-cellphone:justify-center">
         <section className="inline-flex w-auto">
           <h3 className="text-p-16 text-dark-green font-semibold">Productos top</h3>
           <img className="ml-4 w-6 h-6" src="./hugeicons_coffee-beans.svg" alt="Productos top Rodson Coffee" />
         </section>
-        <Link to={"/productos"} className="inline-flex w-auto items-center">
+        <Link to={"/productos"} className="inline-flex w-auto items-center max-cellphone:p-2 max-cellphone:hidden">
           <p className="text-p-16 font-semibold text-dark-green">Ver productos</p>
           <img src="./akar-icons_link-out-green.svg" className="w-4 h-6 ml-4" alt="Ver productos Rodson Coffee" />
         </Link>
       </header>
-      <p className="text-p-16 text-dark-green">5 productos más vendidos en el mes</p>
-      <section className="mt-4 flex gap-4">
+      <p className="text-p-16 text-dark-green max-cellphone:text-center">5 productos más vendidos en el mes</p>
+      <section className="mt-4 flex gap-4 max-cellphone:flex-col max-cellphone:items-center">
         {isLoading ? (
           <p className="text-center text-dark-green py-8">Cargando...</p>
         ) : error ? (
@@ -28,7 +28,7 @@ function TopProducts() {
           <p className="text-center text-dark-green py-8">Sin datos disponibles</p>
         ) : (
           <>
-            <div className="w-39 h-39 shrink-0">
+            <div className="w-39 h-39 max-cellphone-landscape:w-32 max-cellphone-landscape:h-32 shrink-0">
               <canvas ref={canvasRef} className="w-full h-full" />
             </div>
             <div className="flex-1 min-h-39 grid grid-cols-[20px_1fr_60px_16px] gap-2 content-center">
@@ -43,10 +43,16 @@ function TopProducts() {
                   <img src="./iconamoon_trend-up-fill.svg" className="w-4 h-6 self-center" alt="Ver producto" />
                 </div>
               ))}
-            </div>
+            </div>    
           </>
         )}
+        
       </section>
+      <Link to={"/productos"} className="inline-flex w-auto items-center max-cellphone:p-2 
+      max-cellphone:mt-4 max-cellphone:flex max-cellphone:justify-center">
+          <p className="text-p-16 font-semibold text-dark-green">Ver productos</p>
+          <img src="./akar-icons_link-out-green.svg" className="w-4 h-6 ml-4" alt="Ver productos Rodson Coffee" />
+      </Link>
     </div>
   );
 }

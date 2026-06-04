@@ -44,7 +44,7 @@ function LastOrders() {
         )}
       </section>
       <Link to={"/ordenes"} className="inline-flex w-auto items-center cellphone-landscape:hidden max-cellphone:flex
-      max-cellphone:justify-center max-cellphone:mt-4">
+          max-cellphone:justify-center max-cellphone:mt-4">
           <p className="text-p-16 font-semibold text-dark-green">Ver ordenes</p>
           <img src="./akar-icons_link-out-green.svg" className="w-4 h-6 ml-4" alt="Ver ordenes Rodson Coffee" />
       </Link>

@@ -12,22 +12,26 @@ const labelToSelector: Record<LabelType, (state: ReturnType<typeof useHeaderDash
   "Eventos": (state) => state.totalEvents,
 };
 
-function getDisplayValue(label: LabelType, apiValues: { totalIncomes: number; totalOrders: number }, storeValue: number): { value: number; formatted: string } {
+function getDisplayValue(label: LabelType, apiValues: { totalIncomes: number; totalOrders: number; totalProducts: number; totalEvents: number }, _storeValue: number): { value: number; formatted: string } {
   switch (label) {
     case "Ingresos totales":
       return { value: apiValues.totalIncomes, formatted: formatPrice(apiValues.totalIncomes) };
     case "Ordenes":
       return { value: apiValues.totalOrders, formatted: apiValues.totalOrders.toString() };
+    case "Productos":
+      return { value: apiValues.totalProducts, formatted: apiValues.totalProducts.toString() };
+    case "Eventos":
+      return { value: apiValues.totalEvents, formatted: apiValues.totalEvents.toString() };
     default:
-      return { value: storeValue, formatted: storeValue.toString() };
+      return { value: _storeValue, formatted: _storeValue.toString() };
   }
 }
 
 function DashboardMainCard({ label, image }: DasboardCardProps) {
-  const { totalIncomes, totalOrders } = useDashboardMainCard();
+  const { totalIncomes, totalOrders, totalProducts, totalEvents } = useDashboardMainCard();
   const selector = labelToSelector[label as LabelType] ?? (() => 0);
   const storeValue = useHeaderDashboard(selector);
-  const { formatted: displayValue } = getDisplayValue(label as LabelType, { totalIncomes, totalOrders }, storeValue);
+  const { formatted: displayValue } = getDisplayValue(label as LabelType, { totalIncomes, totalOrders, totalProducts, totalEvents }, storeValue);
   
   return (
     <div className="w-54 rounde-ml h-full bg-light-blue grid grid-cols-[162px_1fr] grid-rows-[auto_auto] p-2 mt-2
