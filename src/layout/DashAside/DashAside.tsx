@@ -8,7 +8,7 @@ export default function DashAside() {
   const { pathname } = useHeaderDashboardSync();
 
   return (
-    <aside className="bg-light-dash-green p-4 h-full max-tablet-large:hidden">
+    <aside className="bg-light-dash-green p-4 h-auto max-tablet-large:hidden sticky top-0">
       <ul className="flex flex-col items-center gap-6 fixed" ref={container}>
         <li>
           <Link to="/">
