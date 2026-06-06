@@ -1,8 +1,5 @@
 import { useTableSelectCard } from "./useTableSelectCard";
-
-type TableSelectCardProps = {
-  label: string;
-};
+import type { TableSelectCardProps } from './type';
 
 const TableSelectCard: React.FC<TableSelectCardProps> = ({ label }) => {
   const { dayOptions, isLoading, error } = useTableSelectCard();
@@ -13,7 +10,7 @@ const TableSelectCard: React.FC<TableSelectCardProps> = ({ label }) => {
       <select
         name="opciones"
         id="opciones"
-        className="bg-light-dash-green rounded-md w-44 h-12 border-none p-0 cursor-pointer
+        className="bg-light-dash-green rounded-md w-46 h-12 border-none p-0 cursor-pointer
         text-p-16 text-dark-green font-semibold"
       >
         {isLoading && (

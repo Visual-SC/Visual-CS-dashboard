@@ -1,19 +1,8 @@
 import { useMemo } from "react";
 import { useDateOrders } from "../../api/useDateorders";
 import { FormatDate } from "../../utils/FormatDate";
+import type { DayOption, UseTableSelectCardReturn } from "./type";
 
-interface DayOption {
-  id: string;
-  fechaOriginal: string;
-  fechaFormateada: string;
-}
-
-interface UseTableSelectCardReturn {
-  dayOptions: DayOption[];
-  isLoading: boolean;
-  error: string | null;
-  refetch: () => void;
-}
 
 export function useTableSelectCard(): UseTableSelectCardReturn {
   const { last5 } = useDateOrders();
