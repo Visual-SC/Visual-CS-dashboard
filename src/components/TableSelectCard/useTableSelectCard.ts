@@ -8,24 +8,13 @@ export function useTableSelectCard(): UseTableSelectCardReturn {
   const { last5 } = useDateOrders();
 
   const dayOptions = useMemo<DayOption[]>(() => {
-    if (!last5.data) return [];
+    if (!last5.days || last5.days.length === 0) return [];
 
-    const daysMap = new Map<string, { count: number; total: number }>();
-
-    last5.data.forEach((order) => {
-      const date = new Date(order.fecha);
-      const dayKey = date.toISOString().split("T")[0];
-
-      const existing = daysMap.get(dayKey) || { count: 0, total: 0 };
-      daysMap.set(dayKey, {
-        count: existing.count + 1,
-        total: existing.total + order.resumen.total,
-      });
-    });
-
-    return Array.from(daysMap.keys())
-      .map((dayKey) => {
-        const formatDate = new FormatDate(new Date(dayKey));
+    return last5.days
+      .map((dayISO) => {
+        const dayDate = new Date(dayISO);
+        const dayKey = dayDate.toISOString().split("T")[0];
+        const formatDate = new FormatDate(dayDate);
         return {
           id: dayKey,
           fechaOriginal: dayKey,
@@ -33,7 +22,7 @@ export function useTableSelectCard(): UseTableSelectCardReturn {
         };
       })
       .sort((a, b) => b.fechaOriginal.localeCompare(a.fechaOriginal));
-  }, [last5.data]);
+  }, [last5.days]);
 
   return {
     dayOptions,

@@ -4,8 +4,9 @@ export interface Last5OrdersResponse {
   status: string;
   message: string;
   data: {
-    year: number;
-    month: number;
+    startDate: string;
+    endDate: string;
+    last5Days: string[];
     totalOrders: number;
     orders: OrderInitial[];
   };

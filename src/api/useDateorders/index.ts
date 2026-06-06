@@ -7,6 +7,8 @@ const ORDERS_URL = "http://localhost:3001/api/get-orders";
 
 export function useDateOrders() {
   const [last5Data, setLast5Data] = useState<OrderInitial[] | null>(null);
+  const [last5Days, setLast5Days] = useState<string[] | null>(null);
+  const [last5Range, setLast5Range] = useState<{ startDate: string; endDate: string } | null>(null);
   const [monthlyData, setMonthlyData] = useState<{ year: number; month: number; totalOrders: number; orders: OrderInitial[] } | null>(null);
   const [isLoadingLast5, setIsLoadingLast5] = useState(false);
   const [isLoadingMonthly, setIsLoadingMonthly] = useState(false);
@@ -19,11 +21,14 @@ export function useDateOrders() {
 
     try {
       const res = await fetch(`${BASE_URL}/last5`);
-      if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
 
+      if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
+      
       
       const json: Last5OrdersResponse = await res.json();
       setLast5Data(json.data.orders as OrderInitial[]);
+      setLast5Days(json.data.last5Days);
+      setLast5Range({ startDate: json.data.startDate, endDate: json.data.endDate });
     } catch (err) {
       setErrorLast5(err instanceof Error ? err.message : "Error desconocido");
     } finally {
@@ -52,7 +57,14 @@ export function useDateOrders() {
   }, [fetchLast5]);
 
   return {
-    last5: { data: last5Data, isLoading: isLoadingLast5, error: errorLast5, refetch: fetchLast5 },
+    last5: { 
+      data: last5Data, 
+      days: last5Days,
+      range: last5Range,
+      isLoading: isLoadingLast5, 
+      error: errorLast5, 
+      refetch: fetchLast5 
+    },
     monthly: { data: monthlyData, isLoading: isLoadingMonthly, error: errorMonthly, fetch: fetchMonthly },
   };
 }

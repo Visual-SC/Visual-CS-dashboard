@@ -10,7 +10,7 @@ export interface DashAsideCellphoneRef {
 }
 
 const DashAsideCellphone = forwardRef<DashAsideCellphoneRef>(function DashAsideCellphone(_, ref) {
-  const { containerRef, arrowRef, toggleAside } = useDashAsideCellphone();
+  const { containerRef, toggleAside } = useDashAsideCellphone();
   const { pathname } = useHeaderDashboardSync();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -37,7 +37,7 @@ const DashAsideCellphone = forwardRef<DashAsideCellphoneRef>(function DashAsideC
         {navItems.map((item, index) => {
           const isActive = pathname === item.to;
           return (
-            <li key={item.to} className="w-84">
+            <li key={item.to} className="w-5/6">
               <Link
                 to={item.to}
                 className={`item relative inline-flex items-center gap-2 justify-between w-full ${isActive ? 'active' : ''}`}
