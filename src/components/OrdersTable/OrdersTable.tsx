@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import type { Order, OrdersTableProps } from './type';
 import { ESTADO_STYLES } from './data';
 import { formatPrice } from '../../utils/formatPrice';
+import Tooltip from '../Tooltip/Tooltip';
 
 const SAMPLE_ORDERS: Order[] = [
   { id: "1", fecha: "2026-05-17", mesa: "B", estado: "Completada", total: 120000 },
@@ -19,116 +21,113 @@ export default function OrdersTable({
   onDetail,
   onDelete,
 }: OrdersTableProps) {
+  const [hoveredTooltip, setHoveredTooltip] = useState<{ orderId: string; button: 'edit' | 'view' | 'delete' } | null>(null);
+
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-      <table className="w-full text-sm table-fixed">
-        <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide">
-            <th className="px-4 py-3 text-left w-[107px] font-medium">
+    <div className="w-full overflow-x-auto rounded-md bg-white">
+      <table className="w-full text-p-16 table-fixed bg-white">
+        <thead className="font-semibold">
+          <tr className="bg-light-dash-green text-p-16 text-dark-green">
+            <th className=" text-center w-27">
               <span className="inline-flex items-center gap-1">
                 Fecha
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path d="M7 8l5-5 5 5M7 16l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <img src="./lets-icons_sort-arrow.svg" alt="Fecha"/>
               </span>
             </th>
-            <th className="px-4 py-3 text-left w-[291px] font-medium">
+            <th className="text-center w-73 font-semibold">
               <span className="inline-flex items-center gap-1">
                 Cliente
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path d="M7 8l5-5 5 5M7 16l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <img src="./lets-icons_sort-arrow.svg" alt="Fecha"/>
               </span>
             </th>
-            <th className="px-4 py-3 text-left w-[93px] font-medium">
+            <th className="text-center w-23 font-semibold">
               <span className="inline-flex items-center gap-1">
                 Mesa
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path d="M7 8l5-5 5 5M7 16l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <img src="./lets-icons_sort-arrow.svg" alt="Fecha"/>
               </span>
             </th>
-            <th className="px-4 py-3 text-left w-[127px] font-medium">
+            <th className="text-center w-32 font-semibold">
               <span className="inline-flex items-center gap-1">
                 Estado
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path d="M7 8l5-5 5 5M7 16l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <img src="./lets-icons_sort-arrow.svg" alt="Fecha"/>
               </span>
             </th>
-<th className="px-4 py-3 text-left w-[101px] font-medium">
+            <th className="px-4 py-3 text-left w-32 font-semibold">
               <span className="inline-flex items-center gap-1">
                 Total
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <path d="M7 8l5-5 5 5M7 16l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <img src="./lets-icons_sort-arrow.svg" alt="Fecha"/>
               </span>
             </th>
-            <th className="px-4 py-3 text-left w-[137px] font-medium">Opciones</th>
+            <th className="px-4 py-3 text-left w-35 font-semibold">Opciones</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
           {SAMPLE_ORDERS.map((order) => (
             <tr
               key={order.id}
-              className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+              className="mt-1 bg-light-blue"
             >
-              <td className="px-4 py-4 w-[107px] text-gray-500 dark:text-gray-400 whitespace-nowrap">
+              <td className="px-4 py-4 w-27 text-gray-500 dark:text-gray-400 whitespace-nowrap">
                 {order.fecha ?? "—"}
               </td>
-              <td className="px-4 py-4 w-[291px] text-gray-800 dark:text-gray-100 font-medium truncate">
+              <td className="px-4 py-4 w-73 text-gray-800 dark:text-gray-100 font-medium truncate">
                 {order.cliente ?? "—"}
               </td>
-              <td className="px-4 py-4 w-[93px] text-gray-700 dark:text-gray-300 font-semibold">
+              <td className="px-4 py-4 w-24 text-gray-700 dark:text-gray-300 font-semibold">
                 {order.mesa}
               </td>
-              <td className="px-4 py-4 w-[127px]">
+              <td className="px-4 py-4 w-32">
                 <span
                   className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${ESTADO_STYLES[order.estado]}`}
                 >
                   {order.estado}
                 </span>
               </td>
-              <td className="px-4 py-4 w-[101px] text-gray-800 dark:text-gray-100 font-medium">
+              <td className="px-4 py-4 w-25 text-gray-800 dark:text-gray-100 font-medium">
                 {formatPrice(order.total)}
               </td>
-              <td className="px-4 py-4 w-[137px]">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => onEdit?.(order)}
-                    aria-label="Editar orden"
-                    className="px-2 py-1 text-xs rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-700 transition-colors"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => onDetail?.(order)}
-                    aria-label="Ver detalle"
-                    className="px-2 py-1 text-xs rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    Ver
-                  </button>
-                  <button
-                    onClick={() => onDelete?.(order)}
-                    aria-label="Eliminar orden"
-                    className="px-2 py-1 text-xs rounded border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 hover:border-red-300 dark:hover:border-red-700 transition-colors"
-                  >
-                    Eliminar
-                  </button>
+              <td className="px-4 py-4 w-36">
+                <div className="flex items-center w-28 justify-between">
+                  <div className="relative">
+                    <button
+                      onClick={() => onEdit?.(order)}
+                      aria-label="Editar orden"
+                      onMouseEnter={() => setHoveredTooltip({ orderId: order.id, button: 'edit' })}
+                      onMouseLeave={() => setHoveredTooltip(null)}
+                      className="h-6 w-6 flex items-center justify-center cursor-pointer"
+                    >
+                      <img src="./image_edit.svg" alt="Editar" className="h-full w-full" />
+                    </button>
+                    <Tooltip showTooltip={hoveredTooltip?.orderId === order.id && hoveredTooltip?.button === 'edit'} label="Editar" />
+                  </div>
+                  <div className="relative">
+                    <button
+                      onClick={() => onDetail?.(order)}
+                      aria-label="Ver detalle"
+                      onMouseEnter={() => setHoveredTooltip({ orderId: order.id, button: 'view' })}
+                      onMouseLeave={() => setHoveredTooltip(null)}
+                      className="h-6 w-6 flex items-center justify-center cursor-pointer"
+                    >
+                      <img src="./stash_invoice.svg" alt="Ver" className="h-full w-full" />
+                    </button>
+                    <Tooltip showTooltip={hoveredTooltip?.orderId === order.id && hoveredTooltip?.button === 'view'} label="Ver" />
+                  </div>
+                  <div className="relative">
+                    <button
+                      onClick={() => onDelete?.(order)}
+                      aria-label="Eliminar orden"
+                      onMouseEnter={() => setHoveredTooltip({ orderId: order.id, button: 'delete' })}
+                      onMouseLeave={() => setHoveredTooltip(null)}
+                      className="h-6 w-6 flex items-center justify-center cursor-pointer"
+                    >
+                      <img src="./fluent_delete-16-regular.svg" alt="Eliminar" className="h-full w-full" />
+                    </button>
+                    <Tooltip showTooltip={hoveredTooltip?.orderId === order.id && hoveredTooltip?.button === 'delete'} label="Eliminar" />
+                  </div>
                 </div>
               </td>
             </tr>
           ))}
-          {orders.length === 0 && (
-            <tr>
-              <td
-                colSpan={6}
-                className="px-4 py-10 text-center text-gray-400 dark:text-gray-500 text-sm"
-              >
-                No hay órdenes registradas.
-              </td>
-            </tr>
-          )}
         </tbody>
       </table>
     </div>
