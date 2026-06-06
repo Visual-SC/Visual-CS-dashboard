@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useTotalOrders } from "../../api/useTotalOrders";
-import type { OrdenCafe } from "../../api/useTotalOrders/types";
+
 import type { ProductItem, TopProduct } from "./type";
 
 
@@ -8,11 +8,11 @@ export function useTopProducts(limit = 5) {
   const { data, isLoading, error, refetch } = useTotalOrders();
 
   const topProducts = useMemo(() => {
-    if (!data?.data) return [];
+    if (!data) return [];
 
     const productStats = new Map<string, { cantidad: number; total: number }>();
 
-    data.data.forEach((order: OrdenCafe) => {
+    data.forEach((order) => {
       (order.items as ProductItem[]).forEach((item: ProductItem) => {
         const nombre = item.nombre || (item as any).producto || "Unknown";
         const cantidad = item.cantidad || (item as any).quantity || 1;

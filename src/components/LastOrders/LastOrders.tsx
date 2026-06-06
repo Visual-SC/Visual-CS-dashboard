@@ -6,8 +6,8 @@ import OrderCard from '../OrderCard/OrderCard';
 function LastOrders() {
   const { data, isLoading, error } = useTotalOrders();
 
-  const lastFourOrders = data?.data
-    ? [...data.data]
+  const lastFourOrders = data
+    ? [...data]
         .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
         .slice(0, 4)
     : [];

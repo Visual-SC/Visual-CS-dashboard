@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import type { Last5OrdersResponse, MonthlyOrdersResponse, Order } from "./types";
+import type { Last5OrdersResponse, MonthlyOrdersResponse } from "./types";
+import type { OrderInitial } from '../../../types/order-env'
 
 const BASE_URL = "http://localhost:3001/api/order-date";
 
 export function useDateOrders() {
-  const [last5Data, setLast5Data] = useState<Order[] | null>(null);
-  const [monthlyData, setMonthlyData] = useState<{ year: number; month: number; totalOrders: number; orders: Order[] } | null>(null);
+  const [last5Data, setLast5Data] = useState<OrderInitial[] | null>(null);
+  const [monthlyData, setMonthlyData] = useState<{ year: number; month: number; totalOrders: number; orders: OrderInitial[] } | null>(null);
   const [isLoadingLast5, setIsLoadingLast5] = useState(false);
   const [isLoadingMonthly, setIsLoadingMonthly] = useState(false);
   const [errorLast5, setErrorLast5] = useState<string | null>(null);
@@ -18,8 +19,10 @@ export function useDateOrders() {
     try {
       const res = await fetch(`${BASE_URL}/last5`);
       if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
+
+      
       const json: Last5OrdersResponse = await res.json();
-      setLast5Data(json.data.orders);
+      setLast5Data(json.data.orders as OrderInitial[]);
     } catch (err) {
       setErrorLast5(err instanceof Error ? err.message : "Error desconocido");
     } finally {
@@ -35,7 +38,7 @@ export function useDateOrders() {
       const res = await fetch(`${BASE_URL}/monthly?year=${year}&month=${month}`);
       if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
       const json: MonthlyOrdersResponse = await res.json();
-      setMonthlyData(json.data);
+      setMonthlyData({ ...json.data, orders: json.data.orders as OrderInitial[] });
     } catch (err) {
       setErrorMonthly(err instanceof Error ? err.message : "Error desconocido");
     } finally {

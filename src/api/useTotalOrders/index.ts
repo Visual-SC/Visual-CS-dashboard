@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import type { OrdersResponse } from "./types";
+import type { OrderInitial } from '../../../types/order-env';
 
 const BASE_URL = "http://localhost:3001/api/get-orders";
 
 export function useTotalOrders() {
-  const [data, setData] = useState<OrdersResponse | null>(null);
+  const [data, setData] = useState<OrderInitial[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +17,7 @@ export function useTotalOrders() {
       const res = await fetch(BASE_URL);
       if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
       const json: OrdersResponse = await res.json();
-      setData(json);
+      setData(json.data as OrderInitial[]);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error desconocido");
     } finally {

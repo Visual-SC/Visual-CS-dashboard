@@ -1,29 +1,4 @@
-export interface OrderItem {
-  _id: string;
-  nombre: string;
-  categoria: string;
-  precio: number;
-  descripcion: string;
-  disponible: boolean;
-  imagen: string;
-  ingredientes: string[];
-  cantidad: number;
-  total: number;
-}
-
-export interface Order {
-  _id: string;
-  numero_orden: string;
-  fecha: string;
-  estado: string;
-  items: OrderItem[];
-  resumen: {
-    subtotal: number;
-    total: number;
-  };
-  cliente: string;
-  numero_mesa: string;
-}
+import type { OrderInitial } from '../../../types/order-env'
 
 export interface Last5OrdersResponse {
   status: string;
@@ -32,7 +7,7 @@ export interface Last5OrdersResponse {
     year: number;
     month: number;
     totalOrders: number;
-    orders: Order[];
+    orders: OrderInitial[];
   };
 }
 
@@ -43,6 +18,6 @@ export interface MonthlyOrdersResponse {
     year: number;
     month: number;
     totalOrders: number;
-    orders: Order[];
+    orders: OrderInitial[];
   };
 }
