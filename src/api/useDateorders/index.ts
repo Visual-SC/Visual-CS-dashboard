@@ -3,6 +3,7 @@ import type { Last5OrdersResponse, MonthlyOrdersResponse } from "./types";
 import type { OrderInitial } from '../../../types/order-env'
 
 const BASE_URL = "http://localhost:3001/api/order-date";
+const ORDERS_URL = "http://localhost:3001/api/get-orders";
 
 export function useDateOrders() {
   const [last5Data, setLast5Data] = useState<OrderInitial[] | null>(null);
@@ -54,4 +55,32 @@ export function useDateOrders() {
     last5: { data: last5Data, isLoading: isLoadingLast5, error: errorLast5, refetch: fetchLast5 },
     monthly: { data: monthlyData, isLoading: isLoadingMonthly, error: errorMonthly, fetch: fetchMonthly },
   };
+}
+
+export function useOrdersSort(asc: boolean = false) {
+  const [data, setData] = useState<OrderInitial[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch(`${ORDERS_URL}?order=${asc ? "asc" : "desc"}`);
+      if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
+      const json = await res.json();
+      setData(json.data as OrderInitial[]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error desconocido");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [asc]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, isLoading, error, refetch: fetchData };
 }

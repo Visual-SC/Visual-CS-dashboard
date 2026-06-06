@@ -1,23 +1,45 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import type { OrderTable, OrdersTableProps } from './type';
 import { ESTADO_STYLES } from './data';
 import { formatPrice } from '../../utils/formatPrice';
 import Tooltip from '../Tooltip/Tooltip';
+import { useOrdersSort } from '../../api/useDateorders';
 
 export default function OrdersTable({
   orders,
 }: OrdersTableProps) {
   const [hoveredTooltip, setHoveredTooltip] = useState<{ orderId: string; button: 'edit' | 'view' | 'delete' } | null>(null);
+  const [ascOrder, setAscOrder] = useState(false);
+  const { data: sortedOrders, refetch: refetchOrders } = useOrdersSort(ascOrder);
+
+  const ordersMap = useMemo(() => {
+    const map = new Map<string, OrderTable>();
+    orders.forEach(order => map.set(order._id, order));
+    return map;
+  }, [orders]);
+
+  const displayOrders = useMemo(() => {
+    if (!sortedOrders) return orders;
+    return sortedOrders
+      .map(sorted => ordersMap.get(sorted._id))
+      .filter((order): order is OrderTable => order !== undefined);
+  }, [sortedOrders, ordersMap, orders]);
+
+  const handleToggleOrder = () => {
+    const newAsc = !ascOrder;
+    setAscOrder(newAsc);
+    refetchOrders(newAsc);
+  };
 
   return (
     <div className="w-full overflow-x-auto rounded-md bg-white">
       <table className="w-full text-p-16 table-fixed bg-white">
         <thead className="font-semibold">
           <tr className="bg-light-dash-green text-p-16 text-dark-green">
-            <th className=" text-center w-27">
+            <th className=" text-center w-27 cursor-pointer" onClick={handleToggleOrder}>
               <span className="inline-flex items-center gap-1">
                 Fecha
-                <img src="./lets-icons_sort-arrow.svg" alt="Fecha"/>
+                <img src="./lets-icons_sort-arrow.svg" alt="Orden" className={`transition-transform ${ascOrder ? 'rotate-180' : ''}`}/>
               </span>
             </th>
             <th className="text-center w-73 font-semibold">
@@ -48,7 +70,7 @@ export default function OrdersTable({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-          {orders.map((order: OrderTable) => (
+          {displayOrders.map((order: OrderTable) => (
             <tr
               key={order._id}
               className="mt-1 bg-light-blue"

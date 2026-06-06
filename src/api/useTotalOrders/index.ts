@@ -4,7 +4,7 @@ import type { OrderInitial } from '../../../types/order-env';
 
 const BASE_URL = "http://localhost:3001/api/get-orders";
 
-export function useTotalOrders() {
+export function useTotalOrders(direction: boolean = false) {
   const [data, setData] = useState<OrderInitial[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,7 +14,8 @@ export function useTotalOrders() {
     setError(null);
 
     try {
-      const res = await fetch(BASE_URL);
+      const url = `${BASE_URL}?order=${direction ? "asc" : "desc"}`;
+      const res = await fetch(url);
       if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
       const json: OrdersResponse = await res.json();
       setData(json.data as OrderInitial[]);
@@ -23,7 +24,7 @@ export function useTotalOrders() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [direction]);
 
   useEffect(() => {
     fetchData();

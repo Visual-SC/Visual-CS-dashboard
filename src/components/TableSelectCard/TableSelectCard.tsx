@@ -3,7 +3,6 @@ import type { TableSelectCardProps } from './type';
 
 const TableSelectCard: React.FC<TableSelectCardProps> = ({ label }) => {
   const { dayOptions, isLoading, error } = useTableSelectCard();
-  console.log(dayOptions)
 
   return (
     <div className="flex flex-col">
