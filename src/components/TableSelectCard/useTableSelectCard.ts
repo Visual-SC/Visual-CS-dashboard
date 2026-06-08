@@ -3,31 +3,22 @@ import { useDateOrders } from "../../api/useDateorders";
 import { FormatDate } from "../../utils/FormatDate";
 import type { DayOption, UseTableSelectCardReturn } from "./type";
 
-
 export function useTableSelectCard(): UseTableSelectCardReturn {
-  const { last5 } = useDateOrders();
+  const { availableDays, isLoading, error, refetch, selectDate } = useDateOrders();
 
-  const dayOptions = useMemo<DayOption[]>(() => {
-    if (!last5.days || last5.days.length === 0) return [];
+  const dayOptions: DayOption[] = useMemo(() => {
+    return availableDays.map((dateString) => {
+      const [year, month, day] = dateString.split("-");
+      const date = new Date(Number(year), Number(month) - 1, Number(day));
+      const formateada = new FormatDate(date).toSpanishFormat();
 
-    return last5.days
-      .map((dayISO) => {
-        const dayDate = new Date(dayISO);
-        const dayKey = dayDate.toISOString().split("T")[0];
-        const formatDate = new FormatDate(dayDate);
-        return {
-          id: dayKey,
-          fechaOriginal: dayKey,
-          fechaFormateada: formatDate.toSpanishFormat(),
-        };
-      })
-      .sort((a, b) => b.fechaOriginal.localeCompare(a.fechaOriginal));
-  }, [last5.days]);
+      return {
+        id: dateString,
+        fechaOriginal: dateString,
+        fechaFormateada: formateada,
+      };
+    });
+  }, [availableDays]);
 
-  return {
-    dayOptions,
-    isLoading: last5.isLoading,
-    error: last5.error,
-    refetch: last5.refetch,
-  };
+  return { dayOptions, isLoading, error, refetch, selectDate };
 }

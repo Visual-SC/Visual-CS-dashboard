@@ -14,5 +14,5 @@ export interface OrderTable extends OrderTableBase {
 }
 
 export interface OrdersTableProps {
-  orders: OrderTable[];
+  orders?: OrderTable[];
 }

@@ -1,8 +1,11 @@
-import { useTotalOrders } from "../../api/useTotalOrders";
+import { useMemo } from "react";
+import { useDateOrders } from "../../api/useDateorders";
+import { FormatDate } from "../../utils/FormatDate";
 import OrdersTable from "../../components/OrdersTable/OrdersTable";
 import TableSelectCard from "../../components/TableSelectCard/TableSelectCard";
 import type { OrderTable } from "../../components/OrdersTable/type";
 import type { OrderInitial } from "../../../types/order-env";
+import type { DayOption } from "../../components/TableSelectCard/type";
 
 function formatToDateString(fecha: Date | string): string {
   if (typeof fecha === 'string') {
@@ -31,12 +34,41 @@ function transformToOrder(initial: OrderInitial): OrderTable {
 }
 
 export default function Orders() {
-  const { data: orders, isLoading, error } = useTotalOrders();
-  const transformedOrders = orders?.map(transformToOrder) ?? [];
+  const {
+    orders,
+    isLoading,
+    error,
+    availableDays,
+    selectedDate,
+    selectDate,
+  } = useDateOrders();
+
+  const dayOptions: DayOption[] = useMemo(() => {
+    return availableDays.map((dateString) => {
+      const [year, month, day] = dateString.split("-");
+      const date = new Date(Number(year), Number(month) - 1, Number(day));
+      const formateada = new FormatDate(date).toSpanishFormat();
+
+      return {
+        id: dateString,
+        fechaOriginal: dateString,
+        fechaFormateada: formateada,
+      };
+    });
+  }, [availableDays]);
+
+  const transformedOrders = Array.isArray(orders) ? orders.map(transformToOrder) : [];
 
   return (
     <section className="flex flex-col gap-6 p-2">
-      <TableSelectCard label="fecha" />
+      <TableSelectCard
+        label="fecha"
+        dayOptions={dayOptions}
+        selectedDate={selectedDate}
+        selectDate={selectDate}
+        isLoading={isLoading}
+        error={error}
+      />
       {isLoading && <p>Cargando ordenes...</p>}
       {error && <p>Error: {error}</p>}
       <OrdersTable orders={transformedOrders} />

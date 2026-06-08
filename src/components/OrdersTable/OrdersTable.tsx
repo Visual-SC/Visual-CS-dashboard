@@ -2,34 +2,62 @@ import { useState, useMemo } from 'react';
 import type { OrderTable, OrdersTableProps } from './type';
 import { ESTADO_STYLES } from './data';
 import { formatPrice } from '../../utils/formatPrice';
+import { useDateOrders } from '../../api/useDateorders';
+import type { OrderInitial } from '../../../types/order-env';
 import Tooltip from '../Tooltip/Tooltip';
-import { useOrdersSort } from '../../api/useDateorders';
+
+function formatToDateString(fecha: Date | string): string {
+  if (typeof fecha === 'string') {
+    const [year, month, day] = fecha.split('T')[0].split('-');
+    return `${year}-${month}-${day}`;
+  }
+  const d = new Date(fecha);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function transformToOrder(initial: OrderInitial): OrderTable {
+  return {
+    _id: initial._id,
+    numero_orden: initial.numero_orden,
+    estado: initial.estado === "completada" ? "Completada" : "Preparando",
+    resumen: initial.resumen,
+    cliente: initial.cliente,
+    fecha: formatToDateString(initial.fecha),
+    id: initial._id,
+    mesa: String(initial.numero_mesa),
+    total: initial.resumen.total,
+  };
+}
 
 export default function OrdersTable({
-  orders,
+  orders: externalOrders,
 }: OrdersTableProps) {
+  const { orders: fetchedOrders, isLoading, error } = useDateOrders();
+  const [ascOrder, setAscOrder] = useState(true);
   const [hoveredTooltip, setHoveredTooltip] = useState<{ orderId: string; button: 'edit' | 'view' | 'delete' } | null>(null);
-  const [ascOrder, setAscOrder] = useState(false);
-  const { data: sortedOrders, refetch: refetchOrders } = useOrdersSort(ascOrder);
 
-  const ordersMap = useMemo(() => {
-    const map = new Map<string, OrderTable>();
-    orders.forEach(order => map.set(order._id, order));
-    return map;
-  }, [orders]);
+  const handleToggleOrder = () => setAscOrder(prev => !prev);
 
   const displayOrders = useMemo(() => {
-    if (!sortedOrders) return orders;
-    return sortedOrders
-      .map(sorted => ordersMap.get(sorted._id))
-      .filter((order): order is OrderTable => order !== undefined);
-  }, [sortedOrders, ordersMap, orders]);
+    const source = externalOrders ?? fetchedOrders.map(transformToOrder);
+    const sorted = [...source].sort((a, b) => {
+      const dateA = new Date(a.fecha);
+      const dateB = new Date(b.fecha);
+      return ascOrder ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime();
+    });
+    return sorted;
+  }, [externalOrders, fetchedOrders, ascOrder]);
 
-  const handleToggleOrder = () => {
-    const newAsc = !ascOrder;
-    setAscOrder(newAsc);
-    refetchOrders(newAsc);
-  };
+  if (isLoading && !externalOrders) {
+    return <p className="p-4">Cargando ordenes...</p>;
+  }
+
+  if (error && !externalOrders) {
+    return <p className="p-4 text-red-600">Error: {error}</p>;
+  }
 
   return (
     <div className="w-full overflow-x-auto rounded-md bg-white">

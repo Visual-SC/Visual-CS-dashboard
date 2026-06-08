@@ -2,6 +2,11 @@
 
 export type TableSelectCardProps = {
   label: string;
+  dayOptions: DayOption[];
+  selectedDate: string | null;
+  selectDate: (date: string) => void;
+  isLoading: boolean;
+  error: string | null;
 };
 
 // tipado para el hook personalizado useTableSelectCard
@@ -17,4 +22,5 @@ export interface UseTableSelectCardReturn {
   isLoading: boolean;
   error: string | null;
   refetch: () => void;
+  selectDate: (date: string) => void;
 }
